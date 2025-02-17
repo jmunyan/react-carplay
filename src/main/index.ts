@@ -1,21 +1,21 @@
-import { app, shell, BrowserWindow, session, systemPreferences, IpcMainEvent, ipcMain } from 'electron'
-import { join } from 'path'
-import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import { DEFAULT_CONFIG } from 'node-carplay/node'
-import { Socket } from './Socket'
+import { app, shell, BrowserWindow, session, systemPreferences, IpcMainEvent, ipcMain } from 'electron';
+import { join } from 'path';
+import { electronApp, optimizer, is } from '@electron-toolkit/utils';
+import { DEFAULT_CONFIG } from 'node-carplay/node';
+import { Socket } from './Socket';
 import * as fs from 'fs';
 
 // comment below line to allow running on non linux devices
-import {Canbus} from "./Canbus"
+import {Canbus} from "./Canbus";
 
 import { ExtraConfig, KeyBindings } from "./Globals";
 // import CarplayNode, {DEFAULT_CONFIG, CarplayMessage} from "node-carplay/node";
 
-let mainWindow: BrowserWindow
-const appPath: string = app.getPath('userData')
-const configPath: string = appPath + '/config.json'
-console.log(configPath)
-let config: null | ExtraConfig
+let mainWindow: BrowserWindow;
+const appPath: string = app.getPath('userData');
+const configPath: string = appPath + '/config.json';
+console.log(configPath);
+let config: null | ExtraConfig;
 
 const DEFAULT_BINDINGS: KeyBindings = {
   left: 'ArrowLeft',
@@ -28,7 +28,7 @@ const DEFAULT_BINDINGS: KeyBindings = {
   pause: 'KeyO',
   next: 'KeyM',
   prev: 'KeyN'
-}
+};
 
 const EXTRA_CONFIG: ExtraConfig = {
   ...DEFAULT_CONFIG,
@@ -40,12 +40,12 @@ const EXTRA_CONFIG: ExtraConfig = {
   bindings: DEFAULT_BINDINGS,
   most: {},
   canConfig: {}
-}
+};
 
 // comment below line to allow running on non linux devices
-let canbus: null | Canbus
+let canbus: null | Canbus;
 
-let socket: null | Socket
+let socket: null | Socket;
 
 fs.exists(configPath, (exists) => {
     if(exists) {
@@ -64,20 +64,20 @@ fs.exists(configPath, (exists) => {
       config = JSON.parse(fs.readFileSync(configPath).toString())
       console.log("config created and read")
     }
-    socket = new Socket(config!, saveSettings)
+    socket = new Socket(config!, saveSettings);
     // comment below if statement to allow running on non linux devices
     if(config!.canbus) {
-      console.log("Configuring can", config!.canConfig)
-      canbus = new Canbus('can0',  socket, config!.canConfig)
+      console.log("Configuring can", config!.canConfig);
+      canbus = new Canbus('can0',  socket, config!.canConfig);
       canbus.on('lights', (data) => {
-        console.log('lights', data)
-      })
+        console.log('lights', data);
+      });
       canbus.on('reverse', (data) => {
         mainWindow?.webContents?.send('reverse', data)
-      })
+      });
     }
 
-})
+});
 
 const handleSettingsReq = (_: IpcMainEvent ) => {
   console.log("settings request")
@@ -160,7 +160,7 @@ function createWindow(): void {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
   app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
-  systemPreferences.askForMediaAccess("microphone")
+  //systemPreferences.askForMediaAccess("microphone")
   mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
     details.responseHeaders!['Cross-Origin-Opener-Policy'] = ['same-origin'];
     details.responseHeaders!['Cross-Origin-Embedder-Policy'] = ['require-corp'];
