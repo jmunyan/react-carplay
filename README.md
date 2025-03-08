@@ -1,6 +1,8 @@
 # React-Carplay
 
-<a href="https://www.buymeacoffee.com/rhysm" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+pulled from rhysmorgan's react-carplay, made into a separate project to add some functionality and fix some bugs encountered when attempting to run on a raspberry pi 5. (haven't tried to duplicate issues on another pi 🤷)
+
+# <a href="https://github.com/rhysmorgan134/react-carplay" target="_blank" >please see @rhysmorgan134 's project for additional details</a>
 
 This is a react based carplay application, that utilised the Carlinkit [dongle](https://forums.moderndaymods.com/t/carplay-adapter/161) (cpc200-ccpa or cpc200-ccpm)  to provide raspberry pi (and others) compatible
 carplay application.
@@ -101,9 +103,7 @@ the desired key.
 React-carplay uses node-carplay for interfacing to the dongle, recently there has been amazing contributions from both
 @gozmanyoni and @steelbrain without their help alot of the carplay improvements would not of been possible
 
-gozmanyoni coffee link if you wish to show appreciation - https://www.buymeacoffee.com/ygoz
+# <a href="https://github.com/rhysmorgan134/react-carplay" target="_blank" >please see @rhysmorgan134 's project for additional details</a>
 
 <!-- CONTACT -->
-## Contact
-
-https://forums.moderndaymods.com/
+# <a href="https://github.com/rhysmorgan134/react-carplay" target="_blank" >please see @rhysmorgan134 's project for additional details</a>
